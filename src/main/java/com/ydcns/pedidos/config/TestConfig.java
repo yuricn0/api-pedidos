@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.ydcns.pedidos.entities.User;
-import com.ydcns.pedidos.repository.UserRepository;
+import com.ydcns.pedidos.repositories.UserRepository;
 
 @Configuration
 @Profile("test")
