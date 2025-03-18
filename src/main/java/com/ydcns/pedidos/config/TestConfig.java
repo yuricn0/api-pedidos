@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.ydcns.pedidos.entities.Category;
 import com.ydcns.pedidos.entities.Order;
+import com.ydcns.pedidos.entities.OrderItem;
 import com.ydcns.pedidos.entities.Product;
 import com.ydcns.pedidos.entities.User;
 import com.ydcns.pedidos.entities.enums.OrderStatus;
 import com.ydcns.pedidos.repositories.CategoryRepository;
+import com.ydcns.pedidos.repositories.OrderItemRepository;
 import com.ydcns.pedidos.repositories.OrderRepository;
 import com.ydcns.pedidos.repositories.ProductRepository;
 import com.ydcns.pedidos.repositories.UserRepository;
@@ -33,20 +35,12 @@ public class TestConfig implements CommandLineRunner {   // implementar commandL
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
-		
-		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888", "123456");
-		User u2 = new User(null, "Alex Green", "alex@gmail.com", "95545588", "18765656");
-		
-		Order o1 = new Order(null, Instant.parse("2024-06-20T19:53:07Z"), OrderStatus.WAITING_PAYMENT, u1);
-		Order o2 = new Order(null, Instant.parse("2023-07-21T03:42:10Z"), OrderStatus.DELIVERED, u2);
-		Order o3 = new Order(null, Instant.parse("2023-07-22T15:21:22Z"), OrderStatus.PAID, u1);
-		
-		userRepository.saveAll(Arrays.asList(u1, u2));
-		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
-		
 		Category cat1 = new Category(null, "Electronics");
 		Category cat2 = new Category(null, "Books");
 		Category cat3 = new Category(null, "Computers");
@@ -68,6 +62,22 @@ public class TestConfig implements CommandLineRunner {   // implementar commandL
 		p5.getCategories().add(cat2);
 		
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+		
+		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888", "123456");
+		User u2 = new User(null, "Alex Green", "alex@gmail.com", "95545588", "18765656");
+		
+		Order o1 = new Order(null, Instant.parse("2024-06-20T19:53:07Z"), OrderStatus.WAITING_PAYMENT, u1);
+		Order o2 = new Order(null, Instant.parse("2023-07-21T03:42:10Z"), OrderStatus.DELIVERED, u2);
+		Order o3 = new Order(null, Instant.parse("2023-07-22T15:21:22Z"), OrderStatus.PAID, u1);
+		
+		userRepository.saveAll(Arrays.asList(u1, u2));
+		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+		
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice()); 
+		
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 	}
-	
 }
