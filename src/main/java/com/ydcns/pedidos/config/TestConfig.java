@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.ydcns.pedidos.entities.Category;
 import com.ydcns.pedidos.entities.Order;
 import com.ydcns.pedidos.entities.OrderItem;
+import com.ydcns.pedidos.entities.Payment;
 import com.ydcns.pedidos.entities.Product;
 import com.ydcns.pedidos.entities.User;
 import com.ydcns.pedidos.entities.enums.OrderStatus;
@@ -79,5 +80,13 @@ public class TestConfig implements CommandLineRunner {   // implementar commandL
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice()); 
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
+		Payment pay1 = new Payment(null, Instant.parse("2024-06-20T19:53:07Z"), o1);
+		o1.setPayment(pay1);
+		
+		Payment pay2 = new Payment(null, Instant.parse("2023-07-22T16:21:22Z"), o3);
+		o3.setPayment(pay2);
+		
+		orderRepository.saveAll(Arrays.asList(o1,o3));
 	}
 }
