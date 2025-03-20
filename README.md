@@ -19,7 +19,7 @@ API RESTful projetada para um ecommerce, utilizando boas práticas do framework,
 - Maven
 - JPA repository 
 - Hibernate
-- Banco de Dados: H2 (Em memória)
+- Banco de Dados: H2 (Profile Test), Postgres (Profile Dev)
 - Swagger (OpenAPI)
 - Postman (Testes unitários)
 - Eclipse (Ambiente de Desenvolvimento) 
@@ -142,7 +142,7 @@ Isso iniciará a aplicação Spring Boot. Se tudo estiver configurado corretamen
 
 ## Banco de Dados
 
-Vá até o pacote src/main/resources e entre no arquivo `application-test.properties` e veja as credenciais do banco de dados para login e senha. Os campos são:
+Vá até o pacote src/main/resources e entre no arquivo `application.properties` e verá `spring.profiles.active=dev` troque para `spring.profiles.active=test` caso não queira instalar o banco Postgres localmente, após essa troca pro perfil de teste, passa-se agora utilizar o banco h2 (em memória). Ainda no mesmo pacote, no arquivo `application-test.properties` haverá a configuração do banco, se atente as credenciais de acesso ao banco.
 
 - spring.datasource.username=(username aqui)
 - spring.datasource.password=(senha aqui)
