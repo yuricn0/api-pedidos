@@ -11,7 +11,7 @@
 6. [Documentação e Testes da API](#documentação-e-testes-da-api)
 
 ## Introdução
-API RESTful projetada para um ecommerce, utilizando boas práticas do framework, e utilizando o padrão MVC para uma organização eficiente e estruturada das informações.
+Uma API RESTful projetada para um e-commerce, seguindo as melhores práticas do framework escolhido e adotando o padrão arquitetural MVC. A estrutura do projeto prioriza a modularização, a escalabilidade e a organização eficiente das informações, garantindo manutenibilidade e boas práticas de desenvolvimento.
 
 ## Tecnologias Utilizadas
 - Java 21
