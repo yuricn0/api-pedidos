@@ -71,13 +71,11 @@ public class Order implements Serializable {
 	}
 
 	public OrderStatus getOrderStatus() {
-		return OrderStatus.valueOf(orderStatus);
+		return (orderStatus != null) ? OrderStatus.valueOf(orderStatus) : null;
 	}
 
 	public void setOrderStatus(OrderStatus orderStatus) {
-		if (orderStatus != null) {
-			this.orderStatus = orderStatus.getCode();
-		}
+	    this.orderStatus = (orderStatus != null) ? orderStatus.getCode() : null;
 	}
 
 	public User getClient() {
