@@ -59,22 +59,61 @@ Funcionalidades da API:
 
 ```mermaid
 classDiagram
-    class Category {
+    direction LR
+
+    class Product {
         +int id
-        +String nome
-        +String endereco
-        +String cep
-        +String cidade
-        +String uf
+        +String name
+        +String description
+        +double price
+        +String imgUrl
     }
 
-    class Contato {
+    class Category {
         +int id
-        +TipoContato tipoContato
-        +String contato
-        +int pessoaId
+        +String name
     }
- Pessoas "1" --> "*" Contato
+
+    class Order {
+        +int id
+        +Date moment
+        +OrderStatus orderStatus
+        +double total
+    }
+
+    class OrderItem {
+        +int quantity
+        +double price
+        +double subtotal
+    }
+
+    class Payment {
+        +int id
+        +Date moment
+    }
+
+    class User {
+        +int id
+        +String name
+        +String email
+        +String phone
+        +String password
+    }
+    class OrderStatusENUM{
+        +int WAITING_PAYMENT
+        +int PAID
+        +int SHIPPED
+        +int DELIVERED
+        +int CANCELED
+    }  
+
+    %% Relacionamentos
+    Category "1" --> "0..*" Product : OneToMany
+    Product "0..*" .. "0..*" OrderItem : ManyToOne
+    OrderItem "0..*" .. "0..*" Order : ManyToOne
+    Order "1" --> "0..1" Payment : OneToOne
+    Order "0..*" --> "1" User : ManyToOne
+    Product "0..*" --> "0..*" Order : ManyToMany
 ```
 
 ## Executando o projeto
