@@ -18,25 +18,33 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.ydcns.pedidos.entities.Product;
 import com.ydcns.pedidos.services.ProductService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("products")
 public class ProductResource {
 
 	@Autowired
 	private ProductService productService;
+	
 
+	@Operation(summary = "Lista todos os produtos.")
 	@GetMapping
 	public ResponseEntity<List<Product>> findAll() {
 		List<Product> users = productService.findAll();
 		return ResponseEntity.ok().body(users);
 	}
+	
 
+	@Operation(summary = "Retorna um produto por ID.")
 	@GetMapping("{id}")
 	public ResponseEntity<Product> findById(@PathVariable Long id) {
 		Product obj = productService.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
+	
 
+	@Operation(summary = "Cria um novo produto.")
 	@PostMapping
 	public ResponseEntity<Product> createProduct(@RequestBody Product product) {
 		product = productService.createProduct(product);
@@ -44,13 +52,17 @@ public class ProductResource {
 				.toUri();
 		return ResponseEntity.created(uri).body(product);
 	}
+	
 
+	@Operation(summary = "Apaga um produto por ID.")
 	@DeleteMapping("{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		productService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
+	
 
+	@Operation(summary = "Atualiza um produto por ID.")
 	@PutMapping("{id}")
 	public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product obj) {
 		obj = productService.update(id, obj);

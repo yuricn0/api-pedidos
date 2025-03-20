@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,17 +22,22 @@ import jakarta.persistence.Table;
 @Table(name = "tb_product")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
+	@Schema(description = "Identificador único do produto", example = "1")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
+	@Schema(description = "Nome do produto", example = "SmartTV")
 	private String name;
-
+	
+	@Schema(description = "Descrição do produto", example = "Lorem ipsum dolor sit amet, consectetur.")
 	private String description;
-
+	
+	@Schema(description = "Preço do produto", example = "1250.60")
 	private Double price;
-
+	
+	@Schema(description = "Imagem do produto")
 	private String imgUrl;
 
 	@ManyToMany

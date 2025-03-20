@@ -1,12 +1,13 @@
 package com.ydcns.pedidos.services;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import com.ydcns.pedidos.dto.UserDTO;
 import com.ydcns.pedidos.entities.User;
 import com.ydcns.pedidos.repositories.UserRepository;
 import com.ydcns.pedidos.services.exceptions.DataBaseException;
@@ -20,17 +21,21 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
-	public List<User> findAll() {
-		return userRepository.findAll();
+	public List<UserDTO> findAll() {
+	    List<User> users = userRepository.findAll();
+	    return users.stream().map(UserDTO::new).collect(Collectors.toList()); // Converte para DTO
 	}
 
-	public User findById(Long id) {
-		Optional<User> obj = userRepository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+	public UserDTO findById(Long id) {
+		User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+		return new UserDTO(user);
 	}
 
-	public User createUser(User user) {
-		return userRepository.save(user);
+	public UserDTO createUser(UserDTO userDTO) {
+		User user = new User(userDTO);
+		User savedUser = userRepository.save(user);
+		return new UserDTO(savedUser);
+		
 	}
 
 	public void delete(Long id) {
@@ -42,17 +47,17 @@ public class UserService {
 		}
 	}
 
-	public User update(Long id, User obj) {
+	public UserDTO update(Long id, UserDTO obj) {
 		try {
 			User entity = userRepository.getReferenceById(id);
 			updateData(entity, obj);
-			return userRepository.save(entity);
+			return new UserDTO(userRepository.save(entity));
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}
 
-	private void updateData(User entity, User obj) {
+	private void updateData(User entity, UserDTO obj) {
 		entity.setName(obj.getName());
 		entity.setEmail(obj.getEmail());
 		entity.setPhone(obj.getPhone());

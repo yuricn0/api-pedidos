@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ydcns.pedidos.dto.UserDTO;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+@Schema(hidden = true)
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable {
@@ -45,6 +48,13 @@ public class User implements Serializable {
 		this.phone = phone;
 		this.password = password;
 	}
+
+    public User(UserDTO dto) {
+        this.id = dto.getId(); 
+        this.name = dto.getName();
+        this.email = dto.getEmail();
+        this.phone = dto.getPhone();
+    }
 
 	public Long getId() {
 		return id;

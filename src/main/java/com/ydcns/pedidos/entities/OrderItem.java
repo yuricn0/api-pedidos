@@ -6,6 +6,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ydcns.pedidos.entities.pk.OrderItemPk;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -17,9 +18,11 @@ public class OrderItem implements Serializable {
 
 	@EmbeddedId
 	private OrderItemPk id = new OrderItemPk();
-
+	
+	@Schema(description = "Quantidade de itens selecionados", example = "1")
 	private Integer quantity;
-
+	
+	@Schema(description = "Preço do produto", example = "1200")
 	private Double price;
 
 	public OrderItem() {
